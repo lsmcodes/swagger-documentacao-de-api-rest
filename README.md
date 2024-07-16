@@ -13,6 +13,10 @@
                 <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Spring_Boot-black?style=for-the-badge&logo=SpringBoot&logoColor=white">
                 <img src="https://img.shields.io/badge/Spring_Boot-white?style=for-the-badge&logo=SpringBoot&logoColor=black" />
         </picture>
+	<picture>
+                <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/FlyWay-black?style=for-the-badge&logo=FlyWay&logoColor=white">
+                <img src="https://img.shields.io/badge/FlyWay-white?style=for-the-badge&logo=FlyWay&logoColor=black" />
+        </picture>
         <picture>
                 <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Swagger-black?style=for-the-badge&logo=Swagger&logoColor=white">
                 <img src="https://img.shields.io/badge/Swagger-white?style=for-the-badge&logo=Swagger&logoColor=black" />
@@ -24,11 +28,7 @@
 * [Gleyson Sampaio](https://github.com/glysns)
 * [Spring Boot e Swagger](https://github.com/digitalinnovationone/dio-springboot/tree/main/springboot-web-swagger)
 
-## Spring Web
-
-`Spring Web` é o módulo do Spring Framework dedicado ao desenvolvimento de aplicações web. Este módulo suporta diversas abordagens para a construção de aplicações, sendo uma da mais utilizadas, a abordagem `REST`.
-
-## Exercícios
+## Exercício
 
 Este repositório contém um exercício que demonstra a utilização do Swagger para documentar uma aplicação Spring Boot e que cobre os seguintes temas:
 
@@ -36,6 +36,25 @@ Este repositório contém um exercício que demonstra a utilização do Swagger 
 * Controllers
 * Swagger
 * Exception Handler
+
+## Spring Web
+
+`Spring Web` é o módulo do Spring Framework dedicado ao desenvolvimento de aplicações web. Este módulo suporta diversas abordagens para a construção de aplicações, sendo uma da mais utilizadas a abordagem `REST`.
+
+As anotações do Spring Web mais utilizadas são as seguintes:
+
+| Anotação            | Descrição                                                                                                  |
+| --------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `@RestController`   | Define a classe que irá tratar as requisições HTTP                                                        |
+| `@RequestMapping`   | Quando usada a nível de classe, cria uma URI base pela qual a controller será acessada                     |
+| `@GetMapping`       | Mapeia requisições GET para determinados métodos                                                          |
+| `@PostMapping`      | Mapeia requisições POST para determinados métodos                                                         |
+| `@PutMapping`       | Mapeia requisições PUT para determinados métodos                                                          |
+| `@DeleteMapping`    | Mapeia requisições DELETE para determinados métodos                                                       |
+| `@RequestBody`      | Indica que o parâmetro de um método deve ser vinculado ao valor do corpo de uma requisição HTTP         |
+| `@PathVariable`     | É utilizada para tratar mudanças dinâmicas na URI onde um valor específico da URI age como um parâmetro |
+| `@ControllerAdvice` | Define a classe que irá tratar exceções                                                                   |
+| `@ExceptionHandler` | Anota o método que deve ser invocado para tratar determinada exceção                                      |
 
 ## API
 
@@ -65,38 +84,38 @@ O `modelo de maturidade de Richardson` é uma ferramenta para avaliar a maturida
         <img src="assets/images/rest-maturity-levels.png">
 </p>
 
-### Nível 0: The Swamp of POX ou Plain Old XML
+### Nível 0: The Swamp of POX (Plain Old XML)
 
 No nível 0, o HTTP é utilizado apenas como protocolo de transferência, sem a utilização dos diferentes métodos e do cache HTTP. Normalmente, as requisições para recuperar e salvar informações são feitas a uma mesma URI (Uniform Resource Identifier, é uma cadeia de caracteres utilizada para identificar recursos) e somente o método (ou verbo) POST é utilizado.
 
-| Método | URI      | Operação         |
-| ------- | -------- | ------------------ |
-| POST    | /usuario | Pesquisar usuário |
-| POST    | /usuario | Adicionar usuário |
-| POST    | /usuario | Editar usuário    |
-| POST    | /usuario | Excluir usuário   |
+| Método | URI       | Operação         |
+| ------- | --------- | ------------------ |
+| POST    | /products | Pesquisar produto  |
+| POST    | /products | Adicionar produto |
+| POST    | /products | Editar produto    |
+| POST    | /products | Excluir produto   |
 
 ### Nível 1: Resources
 
 No nível 1, há uma distinção entre os recursos oferecidos por meio da utilização de URIs múltiplas, porém ainda há a utilização de apenas um verbo HTTP.
 
-| Método | URI                    | Operação         |
-| ------- | ---------------------- | ------------------ |
-| POST    | /usuario/${id}         | Pesquisar usuário |
-| POST    | /usuario               | Adicionar usuário |
-| POST    | /usuario/editar/${id}  | Editar usuário    |
-| POST    | /usuario/excluir/${id} | Excluir usuário   |
+| Método | URI            | Operação         |
+| ------- | -------------- | ------------------ |
+| POST    | /products      | Pesquisar produtos |
+| POST    | /products      | Adicionar produto  |
+| POST    | /products/{id} | Editar produto     |
+| POST    | /products/{id} | Excluir produto    |
 
 ### Nível 2: HTTP Verbs
 
 No nível 2, há a adição dos verbos HTTP sendo utilizados corretamente para cada requisição.
 
-| Método | URI                    | Operação         |
-| ------- | ---------------------- | ------------------ |
-| GET     | /usuario/${id}         | Pesquisar usuário |
-| POST    | /usuario               | Adicionar usuário |
-| PUT     | /usuario/editar/${id}  | Editar usuário    |
-| DELETE  | /usuario/excluir/${id} | Excluir usuário   |
+| Método | URI            | Operação         |
+| ------- | -------------- | ------------------ |
+| GET     | /products      | Pesquisar usuário |
+| POST    | /products      | Adicionar usuário |
+| PUT     | /products/{id} | Editar usuário    |
+| DELETE  | /products/{id} | Excluir usuário   |
 
 Os verbos HTTP mais usados são:
 
@@ -107,27 +126,55 @@ Os verbos HTTP mais usados são:
 
 ### Nível 3: Hypermedia Controls
 
-O nível 3 é o nível mais alto e é uma junção do nível 2 com HATEOAS (Hypermedia as the Engine of Application State), que consiste em fornecer links que ajudam o usuário a navegar pelos recursos da API. Um exemplo de resposta à requisição `/usuario/1234` utilizando o método `GET`, seria o seguinte:
+O nível 3 é o nível mais alto e é uma junção do nível 2 com HATEOAS (Hypermedia as the Engine of Application State), que consiste em fornecer links que ajudam o usuário a navegar pelos recursos da API. Um exemplo de resposta à requisição `/products` utilizando o método `GET`, seria o seguinte:
 
 ```json
 {
-	"id":"1234",
-	"nome":"Lorena",
-	"email":"exemplo@gmail.com",
-	"links":{
-		"editar":"/usuario/editar/1234",
-		"excluir":"/usuario/excluir/1234"
-	}
+  "products": [
+    {
+      "id": "2b291e06-68cb-46ba-9c4f-b7a08e11f923",
+      "name": "Caderno",
+      "price": "27.9",
+      "quantity": 2,
+      "links": [
+        {
+          "type": "PUT",
+          "uri": "/products/2b291e06-68cb-46ba-9c4f-b7a08e11f923"
+        },
+        {
+          "type": "DELETE",
+          "uri": "/products/2b291e06-68cb-46ba-9c4f-b7a08e11f923"
+        }
+      ]
+    }
+  ]
 }
 ```
 
 ## Swagger
 
-`Swagger` é um conjunto de ferramentas profissionais para desenvolvedores. O `Swagger UI`, mais especificamente, é uma ferramenta que gera documentação e visualização interativa de APIs REST.
+`Swagger` é um conjunto de ferramentas profissionais para desenvolvedores. O `Swagger UI`, mais especificamente, é uma das ferramentas e gera documentação e visualização interativa de APIs REST. Para utilizá-la, basta adicionar a dependência a seguir ao projeto Spring e rodar a aplicação.
+
+```xml
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.6.0</version>
+</dependency>
+
+```
+
+O resultado pode ser visto no browser ao acessar a url http://localhost:8080/swagger-ui/index.html, e após algumas configurações adicionais com o uso de algumas anotações é o seguinte:
+
+<p align="center">
+        <img src="assets/images/swagger.png">
+</p>
 
 ## Referências
 
+* Spring Framework Annotations - https://springframework.guru/spring-framework-annotations/
 * O que é uma API REST? - https://www.redhat.com/pt-br/topics/api/what-is-a-rest-api
 * Richardson Maturity Model - https://www.javatpoint.com/restful-web-services-richardson-maturity-model
 * O que é HATEOAS? - https://www.treinaweb.com.br/blog/o-que-e-hateoas/
 * Swagger UI - https://swagger.io/tools/swagger-ui/
+* Swagger 2.X Annotations - https://github.com/swagger-api/swagger-core/wiki/Swagger-2.X---Annotations
